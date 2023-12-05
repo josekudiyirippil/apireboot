@@ -5,7 +5,7 @@ FROM registry.access.redhat.com/openshift3/ose-cli:v3.11 AS base
 FROM registry.access.redhat.com/ubi8/ubi-minimal:latest
 
 # Install necessary tools (if not present in base image)
-RUN microdnf install -y curl
+RUN microdnf install -y cronie
 
 # Copy the ose-cli binary from the base stage
 COPY --from=base /usr/bin/oc /usr/bin/oc
