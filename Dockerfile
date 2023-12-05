@@ -22,5 +22,8 @@ RUN chmod 0644 /etc/cron.d/delete-oldest-pod-cron && \
     crontab /etc/cron.d/delete-oldest-pod-cron && \
     touch /var/log/cron.log
 
+# Switch to non-privileged user before running crond
+USER appuser
+
 # Run the cron scheduler in the foreground
 CMD ["crond", "-f"]
