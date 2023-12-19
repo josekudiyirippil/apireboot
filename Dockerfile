@@ -15,15 +15,3 @@ COPY delete-oldest-pod.sh /usr/local/bin/delete-oldest-pod.sh
 
 # Set execute permissions for the script
 RUN chmod +x /usr/local/bin/delete-oldest-pod.sh
-
-# Set up cron scheduler
-COPY cronjob.txt /etc/cron.d/delete-oldest-pod-cron
-RUN chmod 0644 /etc/cron.d/delete-oldest-pod-cron && \
-    crontab /etc/cron.d/delete-oldest-pod-cron && \
-    touch /var/log/cron.log
-
-# Switch to non-privileged user before running crond
-USER appuser
-
-# Run the cron scheduler in the foreground
-CMD ["crond", "-f"]
